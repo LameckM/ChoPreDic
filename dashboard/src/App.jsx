@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
+import DistrictRiskMap from "./DistrictRiskMap";
 import {
   Activity, AlertTriangle, ArrowDownRight, ArrowUpRight, Bell, CheckCircle2,
   ChevronDown, ChevronRight, CircleHelp, Clock3, Database, Download, FileBarChart2,
@@ -9,6 +10,7 @@ import {
   Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, ComposedChart, Legend,
   Line, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis
 } from "recharts";
+
 
 const API_BASE = (import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000").replace(/\/$/, "");
 const RISK_COLORS = { high: "#dc655b", medium: "#e7a84b", low: "#36a889" };
@@ -320,7 +322,10 @@ export default function App() {
               </table>
             </div>
             <div className="table-foot"><span>Showing {districtRows.length} of {data?.risk?.districts?.length || 0} districts</span><span>Select a district to view its history</span></div>
-            <div className="map-readiness"><MapPinned size={17}/><span><strong>Map view:</strong> District-level risk rankings are available. A choropleth map can be added when district boundary GeoJSON is connected to the backend.</span></div>
+                        <DistrictRiskMap
+              districts={data?.risk?.districts || []}
+              onSelectDistrict={setSelectedDistrict}
+            />
           </section>
 
           <section id="alerts" className="lower-grid page-section">

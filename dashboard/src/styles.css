@@ -137,3 +137,88 @@ tbody td strong{color:#2b443e;font-weight:700}
 @media(max-width:1100px){.sidebar{width:215px}.main-content{margin-left:215px}.page-wrap{padding:28px 24px}.topbar{padding:0 24px}.metric-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.overview-grid{grid-template-columns:minmax(0,1.3fr) minmax(260px,.9fr)}.lower-grid{grid-template-columns:1fr}}
 @media(max-width:760px){.sidebar{transform:translateX(-100%);transition:transform .22s;width:260px}.sidebar.open{transform:translateX(0)}.sidebar-close{display:grid!important}.mobile-scrim{display:block;position:fixed;inset:0;background:#102b3566;border:0;z-index:25}.main-content{margin-left:0}.topbar{height:58px;padding:0 16px}.mobile-menu{display:grid!important}.breadcrumb{margin-right:auto;margin-left:8px}.topbar-actions{gap:9px}.connection span{display:none}.refresh-button{padding:8px}.page-wrap{padding:24px 15px}.page-intro{display:block}.intro-meta{justify-content:flex-start;margin-top:15px}.overview-grid{grid-template-columns:1fr}.distribution-content{min-height:190px}.page-footer{flex-wrap:wrap}.page-footer>span:last-child{width:100%}.table-toolbar{align-items:stretch;flex-direction:column}.search-box{width:100%}.filter-box{align-self:flex-start}.section-heading h2{font-size:15px}}
 @media(max-width:430px){.metric-grid{gap:9px}.metric-card{padding:12px;gap:9px;min-height:96px}.metric-icon{width:31px;height:31px}.metric-copy strong{font-size:20px}.metric-copy span{font-size:9px}.metric-copy small{font-size:8px}.period-tag{font-size:9px}.panel{padding:15px}.donut-wrap{width:160px;height:160px}.distribution-content{gap:3px}.legend-list{min-width:78px}.legend-list>div{font-size:10px}.feature-row{grid-template-columns:105px 1fr}.feature-heading{display:grid}.alert-row{gap:7px}.alert-copy span{font-size:8px}.district-modal{padding:20px}.table-foot{font-size:8px}}
+
+
+/* Historical district risk map */
+.risk-map-container {
+  margin: 15px 0 20px;
+}
+
+.risk-map {
+  width: 100%;
+  height: 510px;
+  overflow: hidden;
+  border: 1px solid #e4ebe7;
+  border-radius: 10px;
+  z-index: 1;
+}
+
+.risk-map .leaflet-container {
+  font-family: "DM Sans", sans-serif;
+  background: #edf2ef;
+}
+
+.risk-map .leaflet-tooltip {
+  border: 0;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px #183b2e20;
+  font-size: 11px;
+  font-weight: 600;
+  color: #29443b;
+}
+
+.risk-map-legend {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 12px 3px 5px;
+}
+
+.risk-map-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: #71847d;
+}
+
+.risk-map-legend i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
+.risk-map-note {
+  margin: 7px 0 0;
+  color: #8a9992;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.map-loading,
+.map-error {
+  padding: 35px 15px;
+  text-align: center;
+  border-radius: 9px;
+  background: #f5f9f7;
+  color: #71847d;
+  font-size: 12px;
+}
+
+.map-error {
+  color: #a94f45;
+  background: #fff0ee;
+}
+
+@media (max-width: 600px) {
+  .risk-map {
+    height: 390px;
+  }
+
+  .risk-map-legend {
+    gap: 10px;
+  }
+}
+
