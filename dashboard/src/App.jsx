@@ -31,6 +31,13 @@ function prettyModel(value = "") {
 function percent(value) {
   return Number.isFinite(Number(value)) ? `${(Number(value) * 100).toFixed(1)}%` : "—";
 }
+// Model risk scores are relative rankings, not probabilities, so they are shown as a score out of 100.
+function riskScore(value) {
+  return Number.isFinite(Number(value)) ? String(Math.round(Number(value) * 100)) : "—";
+}
+function decimal(value) {
+  return Number.isFinite(Number(value)) ? Number(value).toFixed(2) : "—";
+}
 function number(value) {
   return Number(value || 0).toLocaleString();
 }
@@ -94,7 +101,7 @@ function DistrictModal({ district, onClose }) {
           <button className="icon-button" onClick={onClose} aria-label="Close district details"><X size={19} /></button>
         </div>
         <div className="district-modal-summary">
-          <div><span>Forecast risk score</span><strong>{percent(district.risk)}</strong></div>
+          <div><span>Forecast risk score</span><strong>{riskScore(district.risk)}<small className="score-max"> / 100</small></strong></div>
           <RiskPill level={district.level} />
           <div><span>Latest recorded cases</span><strong>{district.cases_latest == null ? "—" : number(district.cases_latest)}</strong></div>
         </div>
@@ -308,11 +315,11 @@ export default function App() {
             </div>
             <div className="table-wrap">
               <table>
-                <thead><tr><th>District</th><th>Risk score</th><th>Risk category</th><th>Latest recorded cases</th><th></th></tr></thead>
+                <thead><tr><th>District</th><th>Risk score (0-100)</th><th>Risk category</th><th>Latest recorded cases</th><th></th></tr></thead>
                 <tbody>
                   {districtRows.map((row, index) => <tr key={row.district} onClick={() => setSelectedDistrict(row)} tabIndex={0} onKeyDown={(e) => e.key === "Enter" && setSelectedDistrict(row)}>
                     <td><span className="district-rank">{String(index + 1).padStart(2, "0")}</span><strong>{row.district}</strong></td>
-                    <td><div className="score-cell"><span>{percent(row.risk)}</span><div className="score-track"><i style={{ width: `${Math.max(0, Math.min(100, row.risk * 100))}%`, background: RISK_COLORS[row.level] }}/></div></div></td>
+                    <td><div className="score-cell"><span>{riskScore(row.risk)}</span><div className="score-track"><i style={{ width: `${Math.max(0, Math.min(100, row.risk * 100))}%`, background: RISK_COLORS[row.level] }}/></div></div></td>
                     <td><RiskPill level={row.level}/></td>
                     <td>{row.cases_latest == null ? "—" : number(row.cases_latest)}</td>
                     <td><button className="row-open" aria-label={`View ${row.district}`}><ChevronRight size={17}/></button></td>
@@ -323,6 +330,7 @@ export default function App() {
             </div>
             <div className="table-foot"><span>Showing {districtRows.length} of {data?.risk?.districts?.length || 0} districts</span><span>Select a district to view its history</span></div>
                         <DistrictRiskMap
+              forecastYear={forecast}
               districts={data?.risk?.districts || []}
               onSelectDistrict={setSelectedDistrict}
             />
@@ -335,7 +343,7 @@ export default function App() {
               <div className="alert-list">
                 {(data?.alerts?.alerts || []).slice(0, 8).map((alert) => <div className="alert-row" key={alert.district}>
                   <div className={`alert-symbol ${alert.level}`}><AlertTriangle size={17}/></div>
-                  <div className="alert-copy"><strong>{alert.district}</strong><span>{number(alert.cases_latest)} latest recorded cases · risk score {percent(alert.risk)}</span></div>
+                  <div className="alert-copy"><strong>{alert.district}</strong><span>{number(alert.cases_latest)} latest recorded cases · risk score {riskScore(alert.risk)}/100</span></div>
                   <RiskPill level={alert.level}/>
                   <button className="row-open" onClick={() => setSelectedDistrict(alert)} aria-label={`Open ${alert.district}`}><ChevronRight size={17}/></button>
                 </div>)}
@@ -350,7 +358,7 @@ export default function App() {
               <div className="model-table-wrap">
                 <table className="model-table">
                   <thead><tr><th>Model</th><th>PR-AUC</th><th>Recall</th><th>F1</th></tr></thead>
-                  <tbody>{modelRows.map((row) => <tr key={row.name} className={row.name === selectedModel ? "chosen" : ""}><td>{prettyModel(row.name)}{row.name === selectedModel && <span className="chosen-label">SELECTED</span>}</td><td>{percent(row.pr_auc)}</td><td>{percent(row.recall)}</td><td>{percent(row.f1)}</td></tr>)}</tbody>
+                  <tbody>{modelRows.map((row) => <tr key={row.name} className={row.name === selectedModel ? "chosen" : ""}><td>{prettyModel(row.name)}{row.name === selectedModel && <span className="chosen-label">SELECTED</span>}</td><td>{decimal(row.pr_auc)}</td><td>{percent(row.recall)}</td><td>{percent(row.f1)}</td></tr>)}</tbody>
                 </table>
               </div>
               <div className="model-note"><ShieldCheck size={15}/><span>Models are compared using historical rolling-period evaluation. Metrics describe this dataset and test period, not guaranteed future performance.</span></div>

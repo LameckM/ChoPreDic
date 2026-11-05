@@ -48,7 +48,19 @@ that historical data. The dashboard displays the source and forecast years and
 warns when the forecast period is historical. Risk scores are relative model
 scores, not calibrated probabilities or operational outbreak declarations.
 
-The API currently provides district names and IDs, but no district polygon
-geometry. The dashboard therefore shows district risk rankings rather than
-inventing a choropleth map. A map can be added once validated district boundary
-GeoJSON is connected to the backend.
+The map uses a 2017 district boundary file stored in
+`public/data/zambia_districts_2017.geojson`. It only colours districts using the
+risk levels returned by the API, so it displays existing model results and does
+not generate new predictions. Boundaries may differ from later administrative
+changes.
+
+Risk scores are shown out of 100 because they are relative rankings, not
+probabilities.
+
+## Using another device on the network
+
+`.env` is not committed to Git. Copy `.env.example` to `.env`, then set
+`VITE_API_BASE_URL` to the computer's local IP address (for example
+`http://192.168.1.20:8000`). Start the backend with
+`CORS_EXTRA_ORIGINS=http://192.168.1.20:5173` so it accepts requests from the
+dashboard origin.

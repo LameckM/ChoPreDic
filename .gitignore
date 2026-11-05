@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+.venv/
+venv/
+
+# Build output and caches
+dist/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Local settings (copy dashboard/.env.example to dashboard/.env)
+.env
+.env.local
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

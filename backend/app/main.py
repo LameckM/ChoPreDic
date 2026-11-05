@@ -1,4 +1,5 @@
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -17,6 +18,11 @@ app = FastAPI(
     version="0.1.0"
 )
 
+# Extra dashboard origins (for example a phone on the same Wi-Fi) are set with an
+# environment variable instead of being hardcoded:
+#   CORS_EXTRA_ORIGINS=http://192.168.1.20:5173 uvicorn app.main:app --reload
+EXTRA_ORIGINS = [o.strip() for o in os.environ.get("CORS_EXTRA_ORIGINS", "").split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -24,7 +30,7 @@ app.add_middleware(
         "http://127.0.0.1:5173",
         "http://localhost:3000",
         "http://127.0.0.1:3000",
-        "http://192.168.43.193:5173",
+        *EXTRA_ORIGINS,
     ],
     allow_methods=["*"],
     allow_headers=["*"],

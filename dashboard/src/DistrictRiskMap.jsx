@@ -32,6 +32,7 @@ function getDistrictKey(name) {
 }
 
 export default function DistrictRiskMap({
+  forecastYear,
   districts = [],
   onSelectDistrict,
 }) {
@@ -173,7 +174,7 @@ export default function DistrictRiskMap({
       </div>
 
       <p className="risk-map-note">
-        Historical district boundaries and 2019 forecast classifications.
+        Historical district boundaries and {forecastYear ? `${forecastYear} ` : ""}forecast classifications.
         Select a district to view its existing assessment.
       </p>
     </div>
