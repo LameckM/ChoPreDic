@@ -125,7 +125,11 @@ The current model forecast period is **2019**, based on the available historical
 
 ### Geographical data
 
+<<<<<<< HEAD
 The dashboard uses a historical Zambia district boundary GeoJSON dataset from 2017. All 72 districts in the case data match a boundary polygon.
+=======
+The dashboard uses a historical Zambia district boundary GeoJSON dataset from 2017.
+>>>>>>> fd512ab98f1edaddad08c6d4d8fad72fc4cf6d6e
 
 The geographical boundaries are used to display existing district-level model classifications. They do not generate new predictions or change the underlying historical dataset.
 
@@ -207,7 +211,10 @@ ChoPreDic/
 │   ├── package.json
 │   └── .env.example
 │
+<<<<<<< HEAD
 ├── .gitignore
+=======
+>>>>>>> fd512ab98f1edaddad08c6d4d8fad72fc4cf6d6e
 └── README.md
 ```
 
@@ -309,6 +316,7 @@ http://localhost:5173
 
 ### Running on a local network
 
+<<<<<<< HEAD
 To open the dashboard from another device on the same network (for example a phone), use the computer's local IP address, here shown as `192.168.1.20`:
 
 1. Start the backend with that dashboard origin allowed:
@@ -327,6 +335,11 @@ To open the dashboard from another device on the same network (for example a pho
 3. Open `http://192.168.1.20:5173` on the other device.
 
 `dashboard/.env` is ignored by Git, so your own network address is never committed. The backend and dashboard must both be running.
+=======
+To access the dashboard from another device on the same network, configure `VITE_API_BASE_URL` with the computer's reachable local IP address and ensure the backend allows that frontend origin.
+
+The backend and dashboard must both be running.
+>>>>>>> fd512ab98f1edaddad08c6d4d8fad72fc4cf6d6e
 
 ## 9. Machine Learning Pipeline
 
@@ -394,8 +407,12 @@ The application should also be tested through the browser to verify API connecti
 - The historical dataset currently covers 2008–2018.
 - The current forecast period is 2019 and should not be interpreted as a live 2026 outbreak forecast.
 - Model performance depends on the quality, completeness, and representativeness of the available historical data.
+<<<<<<< HEAD
 - Risk scores are relative model scores, not calibrated outbreak probabilities. The dashboard shows them as a score out of 100 for this reason.
 - The data is annual, so the system ranks districts by risk for the next year. It is not a weeks-ahead early-warning signal. Monthly or weekly surveillance data would be needed for that.
+=======
+- Risk scores are relative model scores, not calibrated outbreak probabilities.
+>>>>>>> fd512ab98f1edaddad08c6d4d8fad72fc4cf6d6e
 - Historical district boundaries may not represent later administrative boundary changes.
 - Geographical classification displays existing model results; it does not independently verify outbreaks.
 - The system is intended for research and decision support, not clinical diagnosis or official outbreak confirmation.
