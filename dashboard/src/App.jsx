@@ -210,7 +210,7 @@ export default function App() {
       <aside className={`sidebar ${mobileNav ? "open" : ""}`}>
         <div className="brand">
           <div className="brand-mark"><Activity size={23} strokeWidth={2.5}/></div>
-          <div><strong>ChoPreDic</strong><span>EARLY-WARNING SYSTEM</span></div>
+          <div><strong>Cholera Prediction</strong><span>EARLY-WARNING SYSTEM</span></div>
           <button className="sidebar-close icon-button" onClick={() => setMobileNav(false)}><X size={18}/></button>
         </div>
         <div className="nav-label">WORKSPACE</div>
@@ -240,7 +240,7 @@ export default function App() {
           <section id="overview" className="page-intro">
             <div>
               <div className="eyebrow">PUBLIC HEALTH INTELLIGENCE</div>
-              <h1>Cholera early-warning dashboard</h1>
+              <h1>Cholera early warning dashboard</h1>
               <p>Monitor historical cholera patterns and review model-estimated district risk across Zambia.</p>
             </div>
             <div className="intro-meta">
